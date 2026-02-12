@@ -14,8 +14,8 @@ typedef struct{
 // Public Functions
 void initQueue(Queue *q);
 int isEmpty(Queue *q);
-void enqueue(Queue *q, char *name);
-char dequeue(Queue *q);
+void enqueue(Queue *q, char newName[]);
+int dequeue(Queue *q);
 void freeQueue(Queue *q);
 
 #endif
