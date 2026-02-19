@@ -15,7 +15,7 @@ void initStack(Stack *s);
 int isEmpty(Stack *s);
 void push(Stack *s, char newName[]);
 int pop(Stack *s);
-char peek(Stack *s);
+char * peek(Stack *s);
 void freeStack(Stack *s);
 
 #endif
