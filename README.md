@@ -4,7 +4,7 @@
 Console bank simulator using queue and stack in C.
 
 This project was built to practice:
-- control flow
+- Control flow
 - Strutcts
 - Basic program structure in C
 - Queues
