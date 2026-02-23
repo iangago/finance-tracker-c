@@ -11,9 +11,9 @@ typedef enum{
 Choice readOption(void);
 int stringToInt(const char *input, int *out);
 int checkInputInt(int *value);
-void runBank(void);
-void addCustomer();
-void serveCustomer();
+void runBank(Queue *q, Stack *s);
+void addCustomer(Queue *q);
+void serveCustomer(Queue *q, Stack *s);
 void showQueue(Queue *q);
 void showHistory(Stack *s);
 
