@@ -12,7 +12,7 @@ typedef struct{
 
 // Public Functions
 void initStack(Stack *s);
-int isEmpty(Stack *s);
+int isEmptyStack(Stack *s);
 void push(Stack *s, char newName[]);
 int pop(Stack *s);
 char * peek(Stack *s);

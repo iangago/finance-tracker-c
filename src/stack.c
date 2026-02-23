@@ -7,7 +7,7 @@ void initStack(Stack *s){//initializing stack
     s->top = NULL;
 }
 
-int isEmpty(Stack *s){//checking if the list is empty
+int isEmptyStack(Stack *s){//checking if the list is empty
     return s->top == NULL;
 }
 
@@ -31,7 +31,7 @@ void push(Stack *s, char newName[]){//Adding node
 }
 
 int pop(Stack *s){
-    if(isEmpty(s)){//if the list is empty returns 0
+    if(isEmptyStack(s)){//if the list is empty returns 0
         return 0;
     }//if its empty
     Node *removedNode;
@@ -45,14 +45,14 @@ int pop(Stack *s){
 }
 
 char * peek(Stack *s){//See top
-    if(!isEmpty(s)){
+    if(!isEmptyStack(s)){
         return s->top->name;
     }
     return NULL;
 }
 
 void freeStack(Stack *s){//Delete stack
-    while(!isEmpty(s)){
+    while(!isEmptyStack(s)){
         pop(s);
     }
 }

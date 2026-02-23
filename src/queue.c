@@ -8,7 +8,7 @@ void initQueue(Queue *q){//initializing queue
     q->rear = NULL;
 }
 
-int isEmpty(Queue *q){//checking if the list is empty
+int isEmptyQueue(Queue *q){//checking if the list is empty
     return q->front == NULL;
 }
 
@@ -28,7 +28,7 @@ void enqueue(Queue *q, char newName[]){//adding a node to the queue
     strcpy(newNode->name, newName);
     newNode->next = NULL;
 
-    if(isEmpty(q)){//if the list is empty
+    if(isEmptyQueue(q)){//if the list is empty
         q->front = newNode;
         q->rear = newNode;
     }else{//if the list is not empty
@@ -38,7 +38,7 @@ void enqueue(Queue *q, char newName[]){//adding a node to the queue
 }
 
 int dequeue(Queue *q){//removing a node of the queue
-    if(isEmpty(q)){//if the list is empty returns 0
+    if(isEmptyQueue(q)){//if the list is empty returns 0
         return 0;
     }//if its not empty
     Node *removedNode;
@@ -55,7 +55,7 @@ int dequeue(Queue *q){//removing a node of the queue
 
 
 void freeQueue(Queue *q){//Delete Queue
-    while(!isEmpty(q)){
+    while(!isEmptyQueue(q)){
         dequeue(q);
     }
 }
