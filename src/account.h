@@ -6,16 +6,15 @@
 typedef struct Account{
     int id;
     char *name;
-    float balance;
-    struct History *history;
+    int balance;
+
+    struct Transaction *head;
+    struct Transaction *tail;
 }Account;
 
-typedef struct History{
-   Node *head;
-}History;
-
-void createAccount(History *h, Account *ac);
-bool isEmptyHistory(History *h);
+void initAccount(Account *ac);
+void createAccount(Account *ac);
+bool isEmptyList(Account *ac);
 void freeAccount(Account *ac);
 
 #endif

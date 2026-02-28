@@ -1,18 +1,23 @@
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
 
+#include "account.h"
+
+typedef enum{
+    withdraw = 1, deposit = 0
+}Type;
+
 typedef struct Transaction{
-    float value;
-    int type;//1 = withdraw/ 0 = deposit
+    int value;
+    int type;//W = withdraw/ D = deposit
     char *description;
     int date;
+
+    struct Transaction *next;
 }Transaction;
 
-typedef struct Node{
-    Transaction *data;
-    struct Node *next
-}Node;
-
-void freeTransactions(History *h);
+int getCurrentDate(void);
+void addTransaction(Account *ac, int type);
+void freeTransactions(Account *ac);
 
 #endif
