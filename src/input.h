@@ -5,8 +5,11 @@
 
 #include <stdbool.h>
 
+void removeNewLine(char *input);
 bool parseInt(char *input, int *out);
-void readInt(const char *prompt, int *result);
+bool parseFloat(char *input, float *out);
+void readInt(const char *prompt, int *output);
+void readFloat(const char *prompt, float *output);
 void readStr(const char *prompt, char *output);
 bool checkInputStr(char *string);
 

@@ -6,6 +6,16 @@
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
+#include <float.h>
+
+void removeNewLine(char *input){
+    for(int i = 0; i != '\0'; i++){
+        if(input[i] == '\n'){
+            input[i] = '\0';
+            break;
+        }
+    }
+}
 
 bool parseInt(char *input, int *out){
     if (input == NULL || out == NULL) {//checks if there isnt anything on the input
@@ -38,6 +48,57 @@ bool parseInt(char *input, int *out){
 
     *out = (int)value;//converts it to an int 
     return true;
+}
+
+bool parseFloat(char *input, float *out){
+    if (input == NULL || out == NULL) {//checks if there isnt anything on the input
+        return false;
+    }   
+    
+    char *endptr;
+    errno = 0;
+    float value = strtof(input, &endptr);
+
+    if(endptr == input){//Checks if the string starts with a number
+        return false;
+    }
+
+    if(errno == ERANGE){//Checks overflow
+        return false;
+    }
+
+    if (!isfinite(value)) {
+        return false;
+    }   
+
+    while(isspace((unsigned char)*endptr)){//skip trailing white space
+        endptr++;
+    }
+
+    if(*endptr != '\0'){//checks if there is nothing after the numbers
+        return false;
+    }
+
+    *out = value;//passes the value
+    return true;
+}
+
+void readFloat(const char *prompt, float *output){
+    bool valid = false;
+    char buffer[BUFFER_SIZE];
+
+    do{
+        printf("%s", prompt);
+
+        if (fgets(buffer, BUFFER_SIZE, stdin) == NULL) {
+            printf("Input error.\n");
+            return;
+        }
+
+        valid = parseFloat(buffer, output);
+
+        if(!valid) printf("\nInvalid input.\n");
+    }while(!valid);
 }
 
 void readInt(const char *prompt, int *output){
