@@ -63,6 +63,8 @@ bool applyTransaction(Account *ac, Transaction *t){
     //validate data
     if(t->type == withdraw && t->value > ac->balance){
         printf("Insuficcient funds.\n");
+        free(t->description);
+        free(t);
         return false;
     }
 
