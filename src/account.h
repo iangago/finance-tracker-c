@@ -6,14 +6,14 @@
 typedef struct Account{
     int id;
     char *name;
-    int balance;
+    long balance;
 
     struct Transaction *head;
     struct Transaction *tail;
 }Account;
 
 void initAccount(Account *ac);
-void createAccount(Account *ac);
+void createAccountUI(Account *ac);
 bool isEmptyList(Account *ac);
 void freeAccount(Account *ac);
 
