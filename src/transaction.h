@@ -2,13 +2,14 @@
 #define TRANSACTION_H
 
 #include "account.h"
+#include <stdbool.h>
 
 typedef enum{
     withdraw = 1, deposit = 0
 }Type;
 
 typedef struct Transaction{
-    int value;
+    long value;
     int type;//W = withdraw/ D = deposit
     char *description;
     int date;
@@ -17,7 +18,10 @@ typedef struct Transaction{
 }Transaction;
 
 int getCurrentDate(void);
-void addTransaction(Account *ac, int type);
+Transaction *createTransaction(long value, int type, char *description, int date);
+bool applyTransaction(Account *ac, Transaction *t);
+void insertTransaction(Account *ac, Transaction *t);
+void addTransactionUI(Account *ac, int type);
 void freeTransactions(Account *ac);
 
 #endif
