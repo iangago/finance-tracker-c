@@ -17,6 +17,84 @@ void removeNewLine(char *input){
     }
 }
 
+bool parseMoney(char *input, long *out){
+    //checks if there isnt anything on the input
+    if (input == NULL || out == NULL) {
+        return false;
+    }   
+
+    //skip white space
+    while (isspace((unsigned char)*input)) input++;
+
+    //checks if the number is negative
+    if(*input == '-') return false;
+
+    char *endptr;
+    errno = 0;
+    long dollars = strtol(input, &endptr, 10);        
+    int cents = 0;
+    long amount;
+
+    //Checks if the string starts with a number
+    if(endptr == input){
+        return false;
+    }
+
+    //Checks overflow
+    if(errno == ERANGE){
+            return false;
+    }
+
+    //skip white space
+    while (isspace((unsigned char)*endptr)) endptr++;
+
+    //if there is no point it just return the amount in cents
+    if(*endptr == '\0'){
+        *out = dollars * 100;
+        return true;
+    }
+
+    //checks if there is a point
+    if(*endptr == '.'){
+
+        int digits = 0;
+        endptr++;
+        
+        while(isdigit((unsigned char)*endptr)){
+            cents = cents * 10 + (*endptr - '0');
+            digits++;
+            endptr++;
+        }
+
+        //no digits after the point
+        if(digits  == 0) return false;
+
+        //more than 2 digits
+        if (digits > 2) return false;
+
+        //normalize if only one digit
+        if(digits == 1){
+            cents *= 10;
+        }
+    }
+
+    //gets rid of the \n
+    while(isspace((unsigned char)*endptr)){
+        endptr++;
+    }
+
+    //checks if there is nothing after the numbers
+    if(*endptr != '\0'){
+        return false;
+    }
+
+    //finalize the 
+    amount = dollars * 100 + cents;
+
+    *out = amount;
+    return true;
+}
+
 bool parseInt(char *input, int *out){
     if (input == NULL || out == NULL) {//checks if there isnt anything on the input
         return false;
@@ -96,6 +174,24 @@ void readFloat(const char *prompt, float *output){
         }
 
         valid = parseFloat(buffer, output);
+
+        if(!valid) printf("\nInvalid input.\n");
+    }while(!valid);
+}
+
+void readMoney(const char *prompt, long *output){
+    bool valid = false;
+    char buffer[BUFFER_SIZE];
+
+    do{
+        printf("%s", prompt);
+
+        if (fgets(buffer, BUFFER_SIZE, stdin) == NULL) {
+            printf("Input error.\n");
+            return;
+        }
+
+        valid = parseMoney(buffer, output);
 
         if(!valid) printf("\nInvalid input.\n");
     }while(!valid);
