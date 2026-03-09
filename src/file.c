@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <file.h>
 #include <stdbool.h>
 
 bool loadAccount(Account *ac, const char *filename){
@@ -13,12 +12,13 @@ bool loadAccount(Account *ac, const char *filename){
 
     mainFile = fopen(filename, "r");
 
+    initAccount(ac);
+
     //sees if there is no file
     if(mainFile == NULL){
-        initAccount(ac);
         return true;
     }
-    
+
     //if there is a file
     char buffer[BUFFER_SIZE];
     int line = 1;
@@ -45,7 +45,7 @@ bool loadAccount(Account *ac, const char *filename){
         //balance
         }else if(line == 3){
             removeNewLine(buffer);
-            parseInt(buffer, &ac->balance);
+            ac->balance = strtol(buffer, NULL, 10);
 
         //trasactions
         }else{
