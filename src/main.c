@@ -1,22 +1,25 @@
-#include "queue.h"
-#include "stack.h"
-#include "bank.h"
+#include "input.h"
+#include "account.h"
+#include "transaction.h"
+#include "terminal.h"
+#include "file.h"
+#include "terminal.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h> 
-#include <limits.h>
+#include <stdbool.h>
 #include <ctype.h>
 
-int main(){
-    Queue queue;
-    Stack stack;
-    initQueue(&queue);
-    initStack(&stack);
+int main(void){
+    Account mainAccount;
+    
+    if(!loadAccount(&mainAccount, "account.txt")){
+        printf("\nError loading the account.\n");
+    }
 
-    runBank(&queue, &stack);
+    runTerminal(&mainAccount);
 
-    freeQueue(&queue);
-    freeStack(&stack);
+    freeTransactions(&mainAccount);
+    freeAccount(&mainAccount);
     return 0;
 }
