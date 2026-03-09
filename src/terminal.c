@@ -121,10 +121,13 @@ void runTerminal(struct Account *ac){
 
                         currentT = currentT->next;
                     }
+                    double ratio = ((double) totalE / totalI) * 100;
+
                     printf("\n-------------- SUMMARY ----------------\n");
                     printf("\nTotal Income:     R$ %ld.%02ld", totalI / 100, totalI % 100);
                     printf("\nTotal Expenses:   R$ %ld.%02ld", totalE / 100, totalE % 100);
                     printf("\nNet Balance:      R$ %ld.%02ld", ac->balance / 100, ac->balance % 100);
+                    printf("\nExpense ratio:       %.0f%%", ratio);
                     printf("\n\n---------------------------------------");
 
                     waitEnter();
