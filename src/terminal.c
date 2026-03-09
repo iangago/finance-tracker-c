@@ -71,12 +71,27 @@ void runTerminal(struct Account *ac){
                 if(ac->head == NULL){
                     printf("\nNo transactions yet.\n");
                 }else{
-                    printf("\n----------- TRANSACTION HISTORY -----------\n\n#   TYPE      AMOUNT      DESCRIPTION\n--------------------------------------------\n");
+                    do{
+                        printf("\n----------- TRANSACTION HISTORY -----------\n");
+                        printf("\n1) Show all\n2) Show Income\n3) Show Expenses\n\n--------------------------------------------\n");
+                        readInt("\nSelect an option:", &currentChoice);
+                    }while(currentChoice > 3 || currentChoice < 1);
+
+                    printf("\n#   TYPE      AMOUNT      DESCRIPTION\n--------------------------------------------\n");
+
                     int total = 0;
-                    Transaction * currentT;
+                    Transaction *currentT;
                     currentT = ac->head;
+
                     while(currentT != NULL){
-                         total++;
+                        if(currentChoice == 2 && currentT->type == withdraw){
+                            currentT = currentT->next;
+                            continue;
+                        }else if(currentChoice == 3 && currentT->type == deposit){
+                            currentT = currentT->next;
+                            continue;
+                        }
+                        total++;
                         //number of transaction
                         printf("%d", total);
 
