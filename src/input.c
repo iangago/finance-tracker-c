@@ -6,15 +6,11 @@
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
+#include <math.h>
 #include <float.h>
 
-void removeNewLine(char *input){
-    for(int i = 0; i != '\0'; i++){
-        if(input[i] == '\n'){
-            input[i] = '\0';
-            break;
-        }
-    }
+void removeNewLine(char *str){
+    str[strcspn(str, "\n")] = '\0';
 }
 
 bool parseMoney(char *input, long *out){
@@ -232,6 +228,7 @@ void readStr(const char *prompt, char *output){
         if(!valid) printf("\nInvalid input.\n");
     }while(!valid);
     
+    removeNewLine(buffer);
     strncpy(output, buffer, BUFFER_SIZE - 1);
     output[BUFFER_SIZE - 1] = '\0';
 }
@@ -246,7 +243,11 @@ bool checkInputStr(char *string){
     for(int i = 0; string[i] != '\0'; i++){//iterates trough the string and sees if it has any integers
         if(isdigit((unsigned char)string[i])) return false;
 
-        if(!isalpha((unsigned char)string[i])) return false;
+        if(!isalpha((unsigned char)string[i])){
+            if(string[i] != ' '){
+                return false;  
+            }
+        }
     }
 
     return true;
