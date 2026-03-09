@@ -4,6 +4,8 @@
 #include "account.h"
 #include <stdbool.h>
 
+struct Account;
+
 typedef enum{
     withdraw = 1, deposit = 0
 }Type;
@@ -19,9 +21,9 @@ typedef struct Transaction{
 
 int getCurrentDate(void);
 Transaction *createTransaction(long value, int type, char *description, int date);
-bool applyTransaction(Account *ac, Transaction *t);
-void insertTransaction(Account *ac, Transaction *t);
-void addTransactionUI(Account *ac, int type);
-void freeTransactions(Account *ac);
+bool applyTransaction(struct Account *ac, Transaction *t);
+void insertTransaction(struct Account *ac, Transaction *t);
+bool addTransactionUI(struct Account *ac, int type);
+void freeTransactions(struct Account *ac);
 
 #endif

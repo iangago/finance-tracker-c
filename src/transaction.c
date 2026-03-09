@@ -62,7 +62,7 @@ Transaction *createTransaction(long value, int type, char *description, int date
 bool applyTransaction(Account *ac, Transaction *t){
     //validate data
     if(t->type == withdraw && t->value > ac->balance){
-        printf("Insuficcient funds.\n");
+        printf("\nInsuficcient funds.\n");
         return false;
     }
 
@@ -88,29 +88,30 @@ void insertTransaction(Account *ac, Transaction *t){
     }
 }
 
-void addTransactionUI(Account *ac, int type){
+bool addTransactionUI(Account *ac, int type){
     //collect data
     long value;
     char description[BUFFER_SIZE];
 
-    readMoney("What is the value of the transaction: ", &value);
-    readStr("What is the description of the transaction: ", description);
+    readMoney("\nAmount: ", &value);
+    readStr("Description: ", description);
     removeNewLine(description);
     int date = getCurrentDate();
 
     Transaction *t = createTransaction(value, type, description, date);
     if(t == NULL){
         printf("Error in creating the transaction.\n");
-        return;
+        return false;
     }
 
     if(!applyTransaction(ac, t)){
         free(t->description);
         free(t);
-        return;
+        return false;
     }
 
     insertTransaction(ac, t);
+    return true;
 }
 
 void freeTransactions(Account *ac){
