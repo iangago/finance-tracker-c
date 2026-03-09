@@ -59,7 +59,7 @@ This allows transactions to be dynamically added during program execution.
    * add expenses
    * view transaction history
    * view a financial summary
-4. While the program is running, all account data is saved back to the file if user chooses the terminal option accordaccordingly.
+4. While the program is running, all account data is saved back to the file if user chooses the terminal option accordingly.
 
 ---
 
