@@ -2,7 +2,9 @@
 *.exe
 *.out
 *.o
-*.txt
+
+# User data files
+account.txt
 
 # Build directories
 build/
